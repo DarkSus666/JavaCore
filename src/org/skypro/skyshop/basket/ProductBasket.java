@@ -9,11 +9,10 @@ public class ProductBasket {
     private Product[] products = new Product[5];
     private int size;
 
-    public void addProduct(String name, int price) {
+    public void addProduct(Product product) {
         if (size >= products.length) {
             System.out.println("Невозможно добавить продукт");
         }
-        Product product = new Product(name, price);
         for (int i = 0; i < products.length; i++) {
             if (products[i] == null) {
                 products[i] = product;
