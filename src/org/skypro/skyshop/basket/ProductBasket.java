@@ -33,7 +33,7 @@ public class ProductBasket {
         return total;
     }
 
-    public void basketContain() {
+    public void print() {
         if (size == 0) {
             System.out.println("В корзине пусто");
             return;
