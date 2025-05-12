@@ -33,6 +33,7 @@ public class ProductBasket {
     }
 
     public void print() {
+        int specials = 0;
         if (size == 0) {
             System.out.println("В корзине пусто");
             return;
@@ -40,9 +41,13 @@ public class ProductBasket {
         for (Product product : products) {
             if (product != null) {
                 System.out.println(product);
+                if (product.isSpecial()) {
+                    specials++;
+                }
             }
         }
         System.out.println("Итого: " + basketPrice() + " руб.");
+        System.out.println("Специальных товаров: " + specials);
     }
 
     public boolean searchProduct(String name) {
