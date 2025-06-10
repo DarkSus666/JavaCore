@@ -27,7 +27,7 @@ public class SearchEngine {
         searchables[size++] = item;
     }
 
-    public Searchable bestResult(String search) {
+    public Searchable bestResult(String search) throws BestResultNotFound {
         Searchable best = null;
         int bestCount = 0;
         for (Searchable searchable : searchables) {
@@ -48,12 +48,8 @@ public class SearchEngine {
                 }
             }
         }
-        try {
-            if (bestCount == 0) {
-                throw new BestResultNotFound();
-            }
-        } catch (BestResultNotFound e) {
-            System.out.println("Для поискового запроса '" + search + "' не нашлось статьи");
+        if (bestCount == 0) {
+            throw new BestResultNotFound(search);
         }
         return best;
     }

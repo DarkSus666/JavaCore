@@ -7,11 +7,7 @@ public class SimpleProduct extends Product {
 
     public SimpleProduct(String name, int price) {
         super(name);
-        try {
-            realPrice(price);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
+        realPrice(price);
         this.price = price;
     }
 
