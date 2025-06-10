@@ -8,7 +8,19 @@ public class DiscountedProduct extends Product {
 
     public DiscountedProduct(String name, int basePrice, int discount) {
         super(name);
+        try {
+            if (discount < 0 || discount > 100) {
+                throw new IllegalArgumentException("Ошибка: Неправильная скидка");
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
         this.discount = discount;
+        try {
+            realPrice(basePrice);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
         this.basePrice = basePrice;
     }
 

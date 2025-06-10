@@ -13,11 +13,11 @@ public class App {
     public static void main(String[] args) {
         ProductBasket productBasket = new ProductBasket();
         productBasket.addProduct(new SimpleProduct("продукт 1", 666));
-        productBasket.addProduct(new DiscountedProduct("продукт 2", 777, 30));
+        productBasket.addProduct(new DiscountedProduct("продукт 2", 777, 150));
         productBasket.addProduct(new SimpleProduct("продукт премиум 3", 888));
         productBasket.addProduct(new FixPriceProduct("продукт 4"));
-        productBasket.addProduct(new SimpleProduct("продукт премиум 5", 555));
-        productBasket.addProduct(new SimpleProduct("продукт 6", 333));
+        productBasket.addProduct(new SimpleProduct("продукт премиум 5", 0));
+        productBasket.addProduct(new SimpleProduct("     ", 333));
         productBasket.print();
         System.out.println("В корзине товара на " + productBasket.basketPrice() + " руб.");
         System.out.println("Наличие продукта 6 в корзине: " + productBasket.searchProduct("продукт 6"));
@@ -35,7 +35,7 @@ public class App {
 
         System.out.println();
 
-        SearchEngine searchEngine = new SearchEngine(14);
+        SearchEngine searchEngine = new SearchEngine(15);
         searchEngine.add(new SimpleProduct("продукт 1", 666));
         searchEngine.add(new DiscountedProduct("продукт 2", 777, 30));
         searchEngine.add(new SimpleProduct("продукт премиум 3", 888));
@@ -50,16 +50,20 @@ public class App {
 
         Article article1 = new Article("товар", "статья о товаре");
         Article article2 = new Article("товарчик", "рассказ о товарчике");
-        Article article3 = new Article("товаришка", "повесть о товаришке");
+        Article article3 = new Article("товаришка", "повесть о товаришке товар товар");
+        Article article4 = new Article("товаришка", "повесть о товаришке товарик товарчонок товарото");
 
         searchEngine.add(article1);
         searchEngine.add(article2);
         searchEngine.add(article3);
+        searchEngine.add(article4);
 
         System.out.println("поиск по 'продукту':" + "\n" + Arrays.toString(searchEngine.search("продукт")) + "\n");
         System.out.println("поиск по 'товару':" + "\n" + Arrays.toString(searchEngine.search("товар")) + "\n");
         System.out.println("поиск по 'премиуму':" + "\n" + Arrays.toString(searchEngine.search("премиум")) + "\n");
         System.out.println("поиск по 'ARTICLE':" + "\n" + Arrays.toString(searchEngine.search("ARTICLE")) + "\n");
+        System.out.println("поиск по 'лучшему товару':" + "\n" + searchEngine.bestResult("скоба") + "\n");
+        System.out.println("поиск по 'лучшему товару':" + "\n" + searchEngine.bestResult("товар") + "\n");
 
     }
 }
