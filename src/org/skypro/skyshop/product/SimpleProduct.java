@@ -7,6 +7,7 @@ public class SimpleProduct extends Product {
 
     public SimpleProduct(String name, int price) {
         super(name);
+        realPrice(price);
         this.price = price;
     }
 
