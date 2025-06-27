@@ -1,30 +1,32 @@
 package org.skypro.skyshop.search;
 
+import org.skypro.skyshop.product.Product;
+
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
 public class SearchEngine {
-    private Searchable[] searchables;
+    private List<Searchable> searchables = new LinkedList<>();
     private int size;
 
-    public SearchEngine(int capacity) {
-        this.searchables = new Searchable[capacity];
-        this.size = 0;
-    }
-
-    public Searchable[] search(String query) {
-        Searchable[] results = new Searchable[5];
-        int resultCounter = 0;
-        for (int i = 0; i < size && resultCounter < 5; i++) {
-            if (searchables[i].getSearchTerm().contains(query)) {
-                results[resultCounter++] = searchables[i];
+    public LinkedList<Searchable> search(String name) {
+        LinkedList<Searchable> results = new LinkedList<>();
+        Iterator<Searchable> iterator = searchables.iterator();
+        while (iterator.hasNext()) {
+            Searchable current = iterator.next();
+            if (current.getSearchableName().contains(name)) {
+                results.add(current);
             }
+        }
+        if (results.isEmpty()) {
+            System.out.println("Список пуст");
         }
         return results;
     }
 
     public void add(Searchable item) {
-        if (size >= searchables.length) {
-            throw new IllegalStateException("Массив запросов переполнен");
-        }
-        searchables[size++] = item;
+        searchables.add(item);
     }
 
     public Searchable bestResult(String search) throws BestResultNotFound {
