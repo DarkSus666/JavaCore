@@ -11,128 +11,146 @@ import org.skypro.skyshop.search.SearchEngine;
 import java.util.Arrays;
 
 public class App {
-    public static void main(String[] args) throws BestResultNotFound {
+    public static void main(String[] args) {
+
         ProductBasket productBasket = new ProductBasket();
         try {
-            productBasket.addProduct(new SimpleProduct("продукт 1", 666));
+            productBasket.addProduct(new SimpleProduct("рыба", 150));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
         try {
-            productBasket.addProduct(new DiscountedProduct("продукт 2", 777, 150));
+            productBasket.addProduct(new SimpleProduct("сыр", 300));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
         try {
-            productBasket.addProduct(new SimpleProduct("продукт премиум 3", 888));
+            productBasket.addProduct(new SimpleProduct("колбаса", 200));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
         try {
-            productBasket.addProduct(new FixPriceProduct("продукт 4"));
+            productBasket.addProduct(new SimpleProduct("бекон", 350));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
         try {
-            productBasket.addProduct(new SimpleProduct("продукт премиум 5", 0));
+            productBasket.addProduct(new DiscountedProduct("тухлая рыба", 150, 30));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
         try {
-            productBasket.addProduct(new SimpleProduct("     ", 333));
+            productBasket.addProduct(new DiscountedProduct("тухлый сыр", 300, 20));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
         productBasket.print();
+        System.out.println();
+        System.out.println("Список удаленных продуктов:\n" + productBasket.deleteProductByName("тухлый сыр"));
+        System.out.println();
+        productBasket.print();
+        System.out.println();
+        System.out.println("Список удаленных продуктов:\n" + productBasket.deleteProductByName("мед"));
+        System.out.println();
         System.out.println("В корзине товара на " + productBasket.basketPrice() + " руб.");
-        System.out.println("Наличие продукта 6 в корзине: " + productBasket.searchProduct("продукт 6"));
+        System.out.println();
+        System.out.println("Наличие рыбы в корзине: " + productBasket.searchProduct("рыба"));
+        System.out.println();
         productBasket.clearBasket();
-        productBasket.print();
         System.out.println("В корзине товара на " + productBasket.basketPrice() + " руб.");
-        System.out.println("Наличие продукта 3 в корзине: " + productBasket.searchProduct("продукт 3"));
-        try {
-            productBasket.addProduct(new FixPriceProduct("продукт премиум 200"));
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
-        try {
-            productBasket.addProduct(new DiscountedProduct("продукт 10", 1000, 15));
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
-        try {
-            productBasket.addProduct(new SimpleProduct("продукт 7", 111));
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
-        try {
-            productBasket.addProduct(new DiscountedProduct("продукт 8", 300, 20));
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
-        try {
-            productBasket.addProduct(new SimpleProduct("продукт 9", 444));
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
         System.out.println();
+        System.out.println("Наличие молока в корзине: " + productBasket.searchProduct("молоко"));
+        System.out.println();
+        try {
+            productBasket.addProduct(new DiscountedProduct("тухлая колбаса", 200, 60));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            productBasket.addProduct(new DiscountedProduct("тухлый бекон", 350, 50));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            productBasket.addProduct(new FixPriceProduct("молоко"));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            productBasket.addProduct(new FixPriceProduct("мед"));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            productBasket.addProduct(new FixPriceProduct("масло"));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            productBasket.addProduct(new FixPriceProduct("хлеб"));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
         productBasket.print();
 
-        System.out.println();
-
-        SearchEngine searchEngine = new SearchEngine(15);
+        SearchEngine searchEngine = new SearchEngine();
         try {
-            searchEngine.add(new SimpleProduct("продукт 1", 666));
+            searchEngine.add(new SimpleProduct("рыба", 150));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
         try {
-            searchEngine.add(new DiscountedProduct("продукт 2", 777, 150));
+            searchEngine.add(new SimpleProduct("сыр", 300));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
         try {
-            searchEngine.add(new SimpleProduct("продукт премиум 3", 888));
+            searchEngine.add(new SimpleProduct("колбаса", 200));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
         try {
-            searchEngine.add(new FixPriceProduct("продукт 4"));
+            searchEngine.add(new SimpleProduct("бекон", 350));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
         try {
-            searchEngine.add(new SimpleProduct("продукт премиум 5", 0));
+            searchEngine.add(new DiscountedProduct("тухлая рыба", 150, 30));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
         try {
-            searchEngine.add(new SimpleProduct("    ", 333));
+            searchEngine.add(new DiscountedProduct("тухлый сыр", 300, 20));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
         try {
-            searchEngine.add(new FixPriceProduct("продукт премиум 200"));
+            searchEngine.add(new DiscountedProduct("тухлая колбаса", 200, 60));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
         try {
-            searchEngine.add(new DiscountedProduct("продукт 10", 1000, 15));
+            searchEngine.add(new DiscountedProduct("тухлый бекон", 350, 50));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
         try {
-            searchEngine.add(new SimpleProduct("продукт 7", 111));
+            searchEngine.add(new FixPriceProduct("молоко"));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
         try {
-            searchEngine.add(new DiscountedProduct("продукт 8", 300, 20));
+            searchEngine.add(new FixPriceProduct("мед"));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
         try {
-            searchEngine.add(new SimpleProduct("продукт 9", 444));
+            searchEngine.add(new FixPriceProduct("масло"));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            searchEngine.add(new FixPriceProduct("хлеб"));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
@@ -147,10 +165,11 @@ public class App {
         searchEngine.add(article3);
         searchEngine.add(article4);
 
-        System.out.println("поиск по 'продукту':" + "\n" + Arrays.toString(searchEngine.search("продукт")) + "\n");
-        System.out.println("поиск по 'товару':" + "\n" + Arrays.toString(searchEngine.search("товар")) + "\n");
-        System.out.println("поиск по 'премиуму':" + "\n" + Arrays.toString(searchEngine.search("премиум")) + "\n");
-        System.out.println("поиск по 'ARTICLE':" + "\n" + Arrays.toString(searchEngine.search("ARTICLE")) + "\n");
+        System.out.println("поиск по 'сыру':" + "\n" + searchEngine.search("сыр") + "\n");
+        System.out.println("поиск по 'товару':" + "\n" + searchEngine.search("товар") + "\n");
+        System.out.println("поиск по 'рыбе':" + "\n" + searchEngine.search("рыба") + "\n");
+        System.out.println("поиск по 'ARTICLE':" + "\n" + searchEngine.search("ARTICLE") + "\n");
+        System.out.println("поиск по 'тухл':" + "\n" + searchEngine.search("тухл") + "\n");
         try {
             System.out.println("поиск по 'лучшей скобе':" + "\n" + searchEngine.bestResult("скоба") + "\n");
         } catch (BestResultNotFound e) {
