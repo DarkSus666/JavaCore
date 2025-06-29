@@ -10,8 +10,8 @@ public class SearchEngine {
     private List<Searchable> searchables = new LinkedList<>();
     private int size;
 
-    public LinkedList<Searchable> search(String name) {
-        LinkedList<Searchable> results = new LinkedList<>();
+    public List search(String name) {
+        List results = new LinkedList<>();
         Iterator<Searchable> iterator = searchables.iterator();
         while (iterator.hasNext()) {
             Searchable current = iterator.next();
