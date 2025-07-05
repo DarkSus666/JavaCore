@@ -165,6 +165,7 @@ public class App {
         searchEngine.add(article3);
         searchEngine.add(article4);
 
+        System.out.println();
         System.out.println("поиск по 'сыру':" + "\n" + searchEngine.search("сыр") + "\n");
         System.out.println("поиск по 'товару':" + "\n" + searchEngine.search("товар") + "\n");
         System.out.println("поиск по 'рыбе':" + "\n" + searchEngine.search("рыба") + "\n");
