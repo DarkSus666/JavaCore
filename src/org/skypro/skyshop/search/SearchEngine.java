@@ -2,21 +2,19 @@ package org.skypro.skyshop.search;
 
 import org.skypro.skyshop.product.Product;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class SearchEngine {
     private List<Searchable> searchables = new LinkedList<>();
     private int size;
 
-    public List search(String name) {
-        List results = new LinkedList<>();
+    public Map<String, Searchable> search(String query) {
+        Map<String, Searchable> results = new LinkedHashMap<>();
         Iterator<Searchable> iterator = searchables.iterator();
         while (iterator.hasNext()) {
             Searchable current = iterator.next();
-            if (current.getSearchableName().contains(name)) {
-                results.add(current);
+            if (current.getSearchableName().contains(query)) {
+                results.put(current.getSearchableName(), current);
             }
         }
         if (results.isEmpty()) {
@@ -55,4 +53,5 @@ public class SearchEngine {
         }
         return best;
     }
+
 }
