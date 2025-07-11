@@ -1,26 +1,34 @@
 package org.skypro.skyshop.search;
 
-import org.skypro.skyshop.product.Product;
-
 import java.util.*;
 
 public class SearchEngine {
-    private List<Searchable> searchables = new LinkedList<>();
-    private int size;
+    private Set<Searchable> searchables = new HashSet<>();
 
-    public Map<String, Searchable> search(String query) {
-        Map<String, Searchable> results = new LinkedHashMap<>();
+    public Set<Searchable> search(String query) {
+        Set<Searchable> results = new TreeSet<>(new SearchableComparator());
         Iterator<Searchable> iterator = searchables.iterator();
         while (iterator.hasNext()) {
             Searchable current = iterator.next();
             if (current.getSearchableName().contains(query)) {
-                results.put(current.getSearchableName(), current);
+                results.add(current);
             }
         }
         if (results.isEmpty()) {
             System.out.println("Список пуст");
         }
         return results;
+    }
+
+    public static class SearchableComparator implements Comparator<Searchable> {
+        @Override
+        public int compare(Searchable s1, Searchable s2) {
+            int lengthCompare = Integer.compare(s2.getSearchTerm().length(), s1.getSearchTerm().length());
+            if (lengthCompare != 0) {
+                return lengthCompare;
+            }
+            return s1.getSearchTerm().compareTo(s2.getSearchTerm());
+        }
     }
 
     public void add(Searchable item) {
@@ -54,4 +62,10 @@ public class SearchEngine {
         return best;
     }
 
+    @Override
+    public String toString() {
+        return "SearchEngine{" +
+                "searchables=" + searchables +
+                '}';
+    }
 }
