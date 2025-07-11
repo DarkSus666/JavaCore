@@ -8,14 +8,17 @@ import org.skypro.skyshop.product.SimpleProduct;
 import org.skypro.skyshop.search.BestResultNotFound;
 import org.skypro.skyshop.search.SearchEngine;
 
-import java.util.Arrays;
-
 public class App {
     public static void main(String[] args) {
 
         ProductBasket productBasket = new ProductBasket();
         try {
             productBasket.addProduct(new SimpleProduct("рыба", 150));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            productBasket.addProduct(new SimpleProduct("рыба", 170));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
@@ -67,6 +70,11 @@ public class App {
             System.out.println(e.getMessage());
         }
         try {
+            productBasket.addProduct(new DiscountedProduct("тухлая колбаса", 222, 66));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
             productBasket.addProduct(new DiscountedProduct("тухлый бекон", 350, 50));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -87,6 +95,11 @@ public class App {
             System.out.println(e.getMessage());
         }
         try {
+            productBasket.addProduct(new FixPriceProduct("масло"));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
             productBasket.addProduct(new FixPriceProduct("хлеб"));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -96,6 +109,11 @@ public class App {
         SearchEngine searchEngine = new SearchEngine();
         try {
             searchEngine.add(new SimpleProduct("рыба", 150));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            searchEngine.add(new SimpleProduct("рыба", 170));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
@@ -130,6 +148,11 @@ public class App {
             System.out.println(e.getMessage());
         }
         try {
+            searchEngine.add(new DiscountedProduct("тухлая колбаса", 222, 66));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
             searchEngine.add(new DiscountedProduct("тухлый бекон", 350, 50));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -150,6 +173,11 @@ public class App {
             System.out.println(e.getMessage());
         }
         try {
+            searchEngine.add(new FixPriceProduct("масло"));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
             searchEngine.add(new FixPriceProduct("хлеб"));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -159,11 +187,18 @@ public class App {
         Article article2 = new Article("товарчик", "рассказ о товарчике");
         Article article3 = new Article("товаришка", "повесть о товаришке товар товар");
         Article article4 = new Article("товаришка", "повесть о товаришке товарик товарчонок товарото");
+        Article article5 = new Article("товарчик", "еще один рассказ о товарчике");
+
 
         searchEngine.add(article1);
         searchEngine.add(article2);
         searchEngine.add(article3);
         searchEngine.add(article4);
+        searchEngine.add(article5);
+
+        System.out.println();
+        System.out.println(searchEngine);
+        System.out.println();
 
         System.out.println();
         System.out.println("поиск по 'сыру':" + "\n" + searchEngine.search("сыр") + "\n");
