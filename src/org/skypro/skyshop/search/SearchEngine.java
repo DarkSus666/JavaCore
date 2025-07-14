@@ -1,22 +1,16 @@
 package org.skypro.skyshop.search;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class SearchEngine {
     private Set<Searchable> searchables = new HashSet<>();
 
-    public Set<Searchable> search(String query) {
-        Set<Searchable> results = new TreeSet<>(new SearchableComparator());
-        Iterator<Searchable> iterator = searchables.iterator();
-        while (iterator.hasNext()) {
-            Searchable current = iterator.next();
-            if (current.getSearchableName().contains(query)) {
-                results.add(current);
-            }
-        }
-        if (results.isEmpty()) {
-            System.out.println("Список пуст");
-        }
+    public TreeSet<Searchable> search(String query) {
+        TreeSet<Searchable> results = searchables
+                .stream()
+                .filter(i -> i.getSearchTerm().contains(query))
+                .collect(Collectors.toCollection(() -> new TreeSet<>(new SearchableComparator())));
         return results;
     }
 
