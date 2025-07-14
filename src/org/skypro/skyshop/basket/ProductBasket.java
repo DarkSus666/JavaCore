@@ -3,6 +3,7 @@ package org.skypro.skyshop.basket;
 import org.skypro.skyshop.product.Product;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ProductBasket {
     private Map<String, List<Product>> products = new HashMap<>();
@@ -13,53 +14,39 @@ public class ProductBasket {
         products.put(product.getName(), productList);
     }
 
-    public List<Product> deleteProductByName(String name) {
-        List<Product> deletedProducts = new LinkedList<>();
-        for (Map.Entry<String, List<Product>> listEntry : products.entrySet()) {
-            for (Product product : listEntry.getValue()) {
-                if (product.getName().equals(name)) {
-                    deletedProducts.add(product);
-                    listEntry.getValue().remove(product);
-                }
-            }
-            if (deletedProducts.isEmpty()) {
-                System.out.println("Список пуст");
-            }
-        }
+    public LinkedList<Product> deleteProductByName(String name) {
+        LinkedList<Product> deletedProducts = products.values()
+                .stream()
+                .flatMap(Collection::stream)
+                .filter(i -> i.getName().equals(name))
+                .collect(Collectors.toCollection(LinkedList::new));
         products.remove(name);
         return deletedProducts;
     }
 
     public int basketPrice() {
-        int total = 0;
-        for (List<Product> productList : products.values()) {
-            for (Product product : productList) {
-                if (product != null) {
-                    total += product.getPrice();
-                }
-            }
-        }
-        return total;
+        return products.values()
+                .stream()
+                .flatMap(Collection::stream)
+                .mapToInt(Product::getPrice)
+                .sum();
     }
 
     public void print() {
-        int specials = 0;
-        if (products.isEmpty()) {
-            System.out.println("В корзине пусто");
-            return;
-        }
-        for (List<Product> productList : products.values()) {
-            for (Product product : productList) {
-                if (product != null) {
-                    System.out.println(product);
-                    if (product.isSpecial()) {
-                        specials++;
-                    }
-                }
-            }
-        }
+        products.values()
+                .stream()
+                .flatMap(Collection::stream)
+                .forEach(System.out::println);
         System.out.println("Итого: " + basketPrice() + " руб.");
-        System.out.println("Специальных товаров: " + specials);
+        System.out.println("Специальных товаров: " + getSpecialCount());
+    }
+
+    private Long getSpecialCount() {
+        return products.values()
+                .stream()
+                .flatMap(Collection::stream)
+                .filter(Product::isSpecial)
+                .count();
     }
 
     public boolean searchProduct(String name) {

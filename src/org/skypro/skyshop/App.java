@@ -217,5 +217,15 @@ public class App {
             System.out.println(e);
         }
 
+        System.out.println(productBasket.deleteProductByName("овощ"));
+        System.out.println(productBasket.deleteProductByName("хлеб"));
+        System.out.println();
+        productBasket.print();
+        System.out.println(productBasket.basketPrice());
+        productBasket.clearBasket();
+        System.out.println(productBasket.basketPrice());
+        productBasket.print();
+
+
     }
 }
